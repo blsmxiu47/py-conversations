@@ -1,2 +1,6 @@
+beautifulsoup4==4.1.0
 dagit==0.13.10
 dagster==0.13.10
+lxml==4.6.4
+pytest==6.2.5
+requests-cache==0.8.1
