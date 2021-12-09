@@ -1,4 +1,6 @@
 from dagster import graph
+from py_conversations.ops.ingest_data import ingest_data
+from py_conversations.ops.scrape_googlenews import scrape_googlenews
 
 
 @graph
