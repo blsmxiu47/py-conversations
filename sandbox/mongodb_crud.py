@@ -1,9 +1,11 @@
 from pymongo import MongoClient
 from pprint import pprint
 
+import settings
+
 MONGO_USERNAME = settings.MONGO_USERNAME
 MONGO_PW = settings.MONGO_PW
-MONGO_CLUSTER_NAME = settings.MONGO
+MONGO_CLUSTER_NAME = settings.MONGO_CLUSTER_NAME
 MONGO_DB_NAME = settings.MONGO_DB_NAME
 
 client = MongoClient(
