@@ -1,6 +1,7 @@
 beautifulsoup4==4.1.0
 dagit==0.13.10
 dagster==0.13.10
+dnspython==2.1.0
 lxml==4.6.4
 pymongo==4.0.1
 psycopg2==2.9.2
