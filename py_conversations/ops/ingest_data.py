@@ -1,11 +1,18 @@
-from sqlalchemy import create_engine
+import logging
+
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, Text
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.exc import IntegrityError
+from dagster import op
 
 # from models import ConversationsBase
+import settings
 
+Base = declarative_base()
 
-class ConversationsBase(DeclarativeBase):
-    __tablename__ = "googlenews"
+class ConversationsBase(Base):
+    __tablename__ = 'googlenews'
 
     id = Column(Integer)
     title = Column('title', String(128), primary_key=True)
@@ -33,24 +40,28 @@ def ingest_data(results):
 
     session = Session()
 
-    cb = ConversationsBase()
-    cb.title = results['title']
-    cb.source = results['source']
-    cb.time = results['time']
-    cb.content_url = results['content_url']
-    cb.content = results['content']
-
     success = False
 
-    try:
-        session.add(cb)
-        session.commit()
-    except:
-        session.rollback()
-        raise
-    finally:
-        # TODO: some indicator of success
-        success = True
-        session.close()
+    for item in results:
+        cb = ConversationsBase()
+        cb.title = item['title']
+        cb.source = item['source']
+        cb.time = item['time']
+        cb.content_url = item['content_url']
+        cb.content = item['content']
+
+        try:
+            session.add(cb)
+            session.commit()
+        except IntegrityError as e:
+            logging.warning(e)
+        except:
+            session.rollback()
+            raise
+        finally:
+            # TODO: some indicator of success
+            session.close()
+    
+    success = True
 
     return success

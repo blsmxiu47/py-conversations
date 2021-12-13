@@ -1,5 +1,6 @@
 # import time
 import logging
+from urllib.parse import urljoin
 
 from dagster import op
 import requests
@@ -8,7 +9,7 @@ import lxml
 from bs4 import BeautifulSoup
 # from selenium import webdriver
 
-from utils import handle_request
+from py_conversations.utils import handle_request
 
 
 @op
@@ -51,15 +52,16 @@ def scrape_googlenews():
     query_results = soup.select('main > c-wiz > div:nth-of-type(1) > div')
     results = []
     for result in query_results[:2]:
-        item['article'] = result.select('article')[0]
+        item = {}
+        article = result.select('article')[0]
         item['title'] = article.select('article h3 > a')[0].get_text()
-        item['article_href'] = article.find('a', href=True)['href']
-        item['subheading'] = article.select('div > div')[0]
+        article_href = article.find('a', href=True)['href']
+        subheading = article.select('div > div')[0]
         item['source'] = subheading.find('a').text
         item['time'] = subheading.find('time')['datetime']
 
         if article_href:
-            article_url = response.urljoin(article_href)
+            article_url = urljoin(response.url, article_href)
             # TODO: replace with utils call
             content_response = handle_request(article_url)
             try:

@@ -8,4 +8,3 @@ def test_collect_googlenews():
     result = collect_googlenews.execute_in_process()
 
     assert result.success
-    assert result.output_for_node({}) == 200
