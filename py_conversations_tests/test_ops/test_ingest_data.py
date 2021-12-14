@@ -6,4 +6,4 @@ def test_ingest_data():
     TODO: this.*
     """
 
-    assert ingest_data({}) == True
+    assert ingest_data([]) == True
