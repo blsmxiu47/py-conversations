@@ -15,18 +15,17 @@ MONGO_DB_NAME = settings.MONGO_DB_NAME
 
 @op(
     ins={
-        'collection_name': In(str),
         'items': In(list)
     },
     out=Out(InsertManyResult)
 )
-def insert_items(collection_name, items):
+def insert_items(items):
     client = MongoClient(
         f'mongodb+srv://{MONGO_USERNAME}:{MONGO_PW}@{MONGO_CLUSTER_NAME}.seck8.mongodb.net/?retryWrites=true&w=majority'
     )
 
     db = client[MONGO_DB_NAME]
-    collection = db[collection_name]
+    collection = db['googlenews']
 
     try:
         result = collection.insert_many(items)

@@ -1,4 +1,3 @@
-# import time
 import logging
 from urllib.parse import urljoin
 
@@ -7,16 +6,16 @@ import requests
 import requests_cache
 import lxml
 from bs4 import BeautifulSoup
-# from selenium import webdriver
 
 from py_conversations.utils import handle_request
 
 
 @op
 def scrape_googlenews():
+    # TODO: These will become parameters passed to the op based on existing user/dash preferences or manual selection
     # topics = ['Wildfires']
     topic = 'wildfires'
-    date_range = '1d'
+    date_range = '1h'
     # languages = ['en-US']
     # geos = ['US']
 
@@ -62,7 +61,6 @@ def scrape_googlenews():
 
         if article_href:
             article_url = urljoin(response.url, article_href)
-            # TODO: replace with utils call
             content_response = handle_request(article_url)
             try:
                 item['content_url'] = content_response.url
@@ -72,11 +70,9 @@ def scrape_googlenews():
                 logging.warning(e)
                 item['content_url'] = None
                 item['content'] = None
-
         else:
             item['content_url'] = None
             item['content'] = None
         results.append(item)
-        # yield item
-        # print(f'{title}\n{link}\n{source}\n{time}\n')
+
     return results
