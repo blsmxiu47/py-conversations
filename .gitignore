@@ -12,3 +12,4 @@ http_cache/
 history/
 logs/
 .logs_queue
+docker-compose.yaml
