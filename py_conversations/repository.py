@@ -1,8 +1,7 @@
 from dagster import repository
 
-from py_conversations.graphs.say_hello import say_hello_job
-from py_conversations.schedules.my_hourly_schedule import my_hourly_schedule
-from py_conversations.sensors.my_sensor import my_sensor
+from py_conversations.graphs.collect_insert_googlenews import collect_insert_googlenews
+from py_conversations.schedules.schedules import hourly_collect_googlenews
 
 
 @repository
@@ -13,8 +12,7 @@ def py_conversations():
     For hints on building your Dagster repository, see our documentation overview on Repositories:
     https://docs.dagster.io/overview/repositories-workspaces/repositories
     """
-    jobs = [say_hello_job]
-    schedules = [my_hourly_schedule]
-    sensors = [my_sensor]
+    jobs = [collect_insert_googlenews]
+    schedules = [hourly_collect_googlenews]
 
-    return jobs + schedules + sensors
+    return jobs + schedules
