@@ -69,12 +69,16 @@ dagster-daemon run
 
 Tests can be found in `py_conversations_tests` and are run with the following command:
 
+# Py-conversations
+A dagster project for gathering "conversations" (news, social posts, etc.) around select topics.
+
+## Components
+
+## Data sources
+
+## Usage & Examples
+### Testing
 ```bash
+# To run py_conversations tests
 pytest py_conversations_tests
 ```
-
-As you create Dagster ops and graphs, add tests in `py_conversations_tests/` to check that your
-code behaves as desired and does not break over time.
-
-For hints on how to write tests for ops and graphs in Dagster,
-[see our documentation tutorial on Testing](https://docs.dagster.io/tutorial/testable).
