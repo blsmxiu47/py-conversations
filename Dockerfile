@@ -4,17 +4,20 @@ RUN mkdir -p /opt/dagster/dagster_home /opt/dagster/app
 
 # Install python package requirements
 
-# COPY requirements.txt /opt/app/requirements.txt 
-# RUN pip install -r requirements.txt
-RUN pip install \
-    dagit \
-    dagster-postgres \
-    dagster-docker
+COPY requirements.txt settings.py /opt/dagster/app/
+
+WORKDIR /opt/dagster/app
+
+RUN pip install -r requirements.txt
+# RUN pip install \
+#     dagit \
+#     dagster-postgres \
+#     dagster-docker
 
 # Copy repo and workspace to /opt/dagster/app
 
-RUN pwd
-RUN ls -la
+# RUN pwd
+# RUN ls -la
 
 COPY workspace.yaml /opt/dagster/app/
 
@@ -28,13 +31,13 @@ ENV DAGSTER_HOME=/opt/dagster/dagster_home/
 
 COPY dagster.yaml $DAGSTER_HOME
 
-WORKDIR /opt/dagster/app
+
 
 # Run dagster gRPC server on port 4000
 
 EXPOSE 4000
 
-# CMD ["dagster", "api", "grpc", "-h", "0.0.0.0", "-p", "4000", "-f", "repository.py"]
+CMD ["dagster", "api", "grpc", "-h", "0.0.0.0", "-p", "4000", "-f", "py_conversations/repository.py"]
 
 # EXPOSE 3000
 
