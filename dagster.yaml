@@ -4,7 +4,7 @@ run_storage:
   config:
     postgres_db:
       username:
-        env: DAGSTER_PG_USERNAME
+        env: DAGSTER_PG_USER
       password:
         env: DAGSTER_PG_PASSWORD
       hostname:
@@ -19,7 +19,7 @@ event_log_storage:
   config:
     postgres_db:
       username:
-        env: DAGSTER_PG_USERNAME
+        env: DAGSTER_PG_USER
       password:
         env: DAGSTER_PG_PASSWORD
       hostname:
@@ -34,7 +34,7 @@ schedule_storage:
   config:
     postgres_db:
       username:
-        env: DAGSTER_PG_USERNAME
+        env: DAGSTER_PG_USER
       password:
         env: DAGSTER_PG_PASSWORD
       hostname:
@@ -55,6 +55,15 @@ local_artifact_storage:
   class: LocalArtifactStorage
   config:
     base_dir: "/opt/dagster/local/"
+
+run_launcher:
+  module: dagster_docker
+  class: DockerRunLauncher
+  config:
+    env_vars:
+      - DAGSTER_PG_USER
+      - DAGSTER_PG_PASSWORD
+      - DAGSTER_PG_DB
 
 telemetry:
   enabled: false
