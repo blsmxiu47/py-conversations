@@ -43,12 +43,12 @@ schedule_storage:
         env: DAGSTER_PG_DB
       port: 5432
 
-compute_logs:
-  module: dagster_aws.s3.compute_log_manager
-  class: S3ComputeLogManager
-  config:
-    bucket: "pyconversations-dagster-compute-logs"
-    prefix: "dagster-test-"
+# compute_logs:
+#   module: dagster_aws.s3.compute_log_manager
+#   class: S3ComputeLogManager
+#   config:
+#     bucket: "pyconversations-dagster-compute-logs"
+#     prefix: "dagster-test-"
 
 local_artifact_storage:
   module: dagster.core.storage.root
