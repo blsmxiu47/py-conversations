@@ -1,4 +1,15 @@
-__pycache__
+__pycache__/
 .pytest_cache
 *.py[cod]
 *$py.class
+
+.env
+
+conversations_venv
+
+vcr_cassettes/
+http_cache/
+history/
+logs/
+.logs_queue
+docker-compose.yaml
