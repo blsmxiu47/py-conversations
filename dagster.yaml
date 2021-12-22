@@ -65,6 +65,9 @@ run_launcher:
       - DAGSTER_PG_PASSWORD
       - DAGSTER_PG_HOST
       - DAGSTER_PG_DB
+    container_kwargs:
+      volumes:
+        - repository.py:/opt/dagster/app/
 
 telemetry:
   enabled: false
