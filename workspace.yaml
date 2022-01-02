@@ -1,7 +1,6 @@
 # load_from:
 #   - python_package: py_conversations
 load_from:
-  # Each entry here corresponds to a container that exposes a gRPC server.
   - grpc_server:
       host: app
       port: 4000
