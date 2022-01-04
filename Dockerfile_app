@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-RUN mkdir -p /opt/dagster/dagster_home /opt/dagster/app
+RUN mkdir -p /opt/dagster/dagster_home /opt/dagster/app /opt/dagster/local
 
 # Install python package requirements
 
