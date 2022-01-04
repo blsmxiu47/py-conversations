@@ -1,8 +1,6 @@
-import logging
-
 from pymongo import MongoClient
-from pymongo.errors import BulkWriteError
-from dagster import op, In, Out
+from pymongo.errors import BulkWriteError, ConfigurationError
+from dagster import op, In, Out, get_dagster_logger
 from pymongo.results import InsertManyResult
 
 import settings
@@ -20,9 +18,14 @@ MONGO_DB_NAME = settings.MONGO_DB_NAME
     out=Out(InsertManyResult)
 )
 def insert_items(items):
-    client = MongoClient(
-        f'mongodb+srv://{MONGO_USERNAME}:{MONGO_PW}@{MONGO_CLUSTER_NAME}.seck8.mongodb.net/?retryWrites=true&w=majority'
-    )
+    logger = get_dagster_logger()
+    try:
+        client = MongoClient(
+            f'mongodb+srv://{MONGO_USERNAME}:{MONGO_PW}@{MONGO_CLUSTER_NAME}.seck8.mongodb.net/?retryWrites=true&w=majority'
+        )
+        logger.info(client)
+    except ConfigurationError as e:
+        logger.error(e)
 
     db = client[MONGO_DB_NAME]
     collection = db['googlenews']
@@ -31,4 +34,4 @@ def insert_items(items):
         result = collection.insert_many(items)
         return result
     except BulkWriteError as e:
-        logging.error(e)
+        logger.error(e)
