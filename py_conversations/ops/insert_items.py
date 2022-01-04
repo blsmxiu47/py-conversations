@@ -21,13 +21,13 @@ def insert_items(items):
     logger = get_dagster_logger()
     try:
         client = MongoClient(
-            f'mongodb+srv://{MONGO_USERNAME}:{MONGO_PW}@{MONGO_CLUSTER_NAME}.seck8.mongodb.net/?retryWrites=true&w=majority'
+            f'mongodb+srv://{MONGO_USERNAME}:{MONGO_PW}@{MONGO_CLUSTER_NAME}.seck8.mongodb.net/{MONGO_DB_NAME}?retryWrites=true&w=majority'
         )
         logger.info(client)
     except ConfigurationError as e:
         logger.error(e)
 
-    db = client[MONGO_DB_NAME]
+    db = client.conversations
     collection = db['googlenews']
 
     try:
