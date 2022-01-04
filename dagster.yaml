@@ -49,6 +49,11 @@ schedule_storage:
 #   config:
 #     bucket: "pyconversations-dagster-compute-logs"
 #     prefix: "dagster-test-"
+compute_logs:
+  module: dagster.core.storage.local_compute_log_manager
+  class: LocalComputeLogManager
+  config:
+    base_dir: "/opt/dagster/local/"
 
 local_artifact_storage:
   module: dagster.core.storage.root
@@ -68,6 +73,8 @@ run_launcher:
     container_kwargs:
       volumes:
         - repository.py:/opt/dagster/app/
+    networks:
+      - dagster_network
 
 telemetry:
   enabled: false
