@@ -15,7 +15,7 @@ def scrape_googlenews():
     # TODO: These will become parameters passed to the op based on existing user/dash preferences or manual selection
     # topics = ['Wildfires']
     topic = 'wildfires'
-    date_range = '1h'
+    time_range = '1h'
     # languages = ['en-US']
     # geos = ['US']
 
@@ -23,7 +23,7 @@ def scrape_googlenews():
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582'
     }
     params = {
-        'q': f'{topic} when:{date_range}',
+        'q': f'{topic} when:{time_range}',
         'hl': 'en-US',
         'gl': 'US',
         'ceid': 'US%3Aen'
