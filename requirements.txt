@@ -10,3 +10,4 @@ psycopg2-binary==2.9.2
 pytest==6.2.5
 python-dotenv==0.19.2
 requests-cache==0.8.1
+tweepy==4.4.0
