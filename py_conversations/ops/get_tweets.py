@@ -29,10 +29,28 @@ def get_tweets(topic, last_id=None):
     tweets = api.search_tweets(
         q=query,
         since_id=last_id)
-    
     tweets_list = [json.loads(json.dumps(status._json)) for status in tweets]
 
-    # set last id to be used as starting point for next run
-    last_id = tweets_list[-1]['id']
+    last_id = tweets_list[-1]['id'] # set last id to be used as starting point for next run
+
+    keys_to_extract = [
+        'id', 
+        'created_at', 
+        'lang',
+        'retweet_count',
+        'text'
+        ]
+    user_keys_to_extract = [
+        'id',
+        'screen_name',
+        'profile_image_url',
+        'url']
+
+    filtered_tweets = []
+    for tweet in tweets_list:
+        d = {key: tweet[key] for key in keys_to_extract}
+        d.update([(f'user_{key}', tweet['user'][key]) \
+            for key in user_keys_to_extract])
+        filtered_tweets.append(d)
     
-    return (tweets_list, last_id)
+    return (filtered_tweets, last_id)
