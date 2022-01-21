@@ -1,6 +1,7 @@
 from datetime import datetime
 import json
 import pdb
+from pprint import pprint
 
 import tweepy
 
@@ -18,18 +19,41 @@ def get_tweets(topic, last_id=None):
     api = tweepy.API(auth)
 
     start_date = datetime.now().strftime('%Y-%m-%d')
-    query = f'{topic} since:{start_date}'
+    query = f'{topic} -filter:retweets since:{start_date}'
     tweets = api.search_tweets(
         q=query,
         since_id=last_id,
         count=10)
     
-    tweets_list = [json.loads(json.dumps(status._json)) for status in tweets]
+    tweets_list = [
+        json.loads(json.dumps(status._json)) for status in tweets]
 
     # set last id to be used as starting point for next run
     last_id = tweets_list[-1]['id']
+
+    keys_to_extract = [
+        'id', 
+        'created_at', 
+        'lang',
+        'retweet_count',
+        'text'
+        ]
+    user_keys_to_extract = [
+        'id',
+        'screen_name',
+        'profile_image_url',
+        'url']
+
+    filtered_tweets = []
+    for tweet in tweets_list:
+        d = {key: tweet[key] for key in keys_to_extract}
+        d.update([(f'user_{key}', tweet['user'][key]) \
+            for key in user_keys_to_extract])
+        filtered_tweets.append(d)
     
-    pdb.set_trace()
+    pprint(filtered_tweets[0])
+    
+    # pdb.set_trace()
     return (tweets_list, last_id)
 
 if __name__=='__main__':
