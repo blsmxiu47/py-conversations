@@ -17,7 +17,10 @@ ACCESS_TOKEN_SECRET = settings.TWITTER_ACCESS_TOKEN_SECRET
         'last_id': In(int),
         'limit': In(int)
     },
-    out=Out(tuple)
+    out={
+        'tweets': Out(list),
+        'last_id': Out(int)
+    }
 )
 def get_tweets(topic, last_id, limit=10):
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
@@ -55,4 +58,4 @@ def get_tweets(topic, last_id, limit=10):
             for key in user_keys_to_extract])
         filtered_tweets.append(d)
     
-    return (filtered_tweets, last_id)
+    return filtered_tweets, last_id
