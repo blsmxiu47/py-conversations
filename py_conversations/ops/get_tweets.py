@@ -14,11 +14,12 @@ ACCESS_TOKEN_SECRET = settings.TWITTER_ACCESS_TOKEN_SECRET
 @op(
     ins={
         'topic': In(str),
-        'last_id': In(int)
+        'last_id': In(int),
+        'limit': In(int)
     },
     out=Out(tuple)
 )
-def get_tweets(topic, last_id=None):
+def get_tweets(topic, last_id, limit=10):
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
@@ -28,7 +29,8 @@ def get_tweets(topic, last_id=None):
     query = f'{topic} since:{start_date}'
     tweets = api.search_tweets(
         q=query,
-        since_id=last_id)
+        since_id=last_id,
+        count=limit)
     tweets_list = [json.loads(json.dumps(status._json)) for status in tweets]
 
     last_id = tweets_list[-1]['id'] # set last id to be used as starting point for next run
