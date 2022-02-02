@@ -12,7 +12,7 @@ CONSUMER_SECRET = settings.TWITTER_API_SECRET_KEY
 ACCESS_TOKEN = settings.TWITTER_ACCESS_TOKEN
 ACCESS_TOKEN_SECRET = settings.TWITTER_ACCESS_TOKEN_SECRET
 
-def get_tweets(topic, last_id=None):
+def get_tweets(topic, last_id=None, limit=10):
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
@@ -23,7 +23,7 @@ def get_tweets(topic, last_id=None):
     tweets = api.search_tweets(
         q=query,
         since_id=last_id,
-        count=10)
+        count=limit)
     
     tweets_list = [
         json.loads(json.dumps(status._json)) for status in tweets]
@@ -53,9 +53,8 @@ def get_tweets(topic, last_id=None):
     
     pprint(filtered_tweets[0])
     
-    # pdb.set_trace()
+    pdb.set_trace()
     return (tweets_list, last_id)
 
 if __name__=='__main__':
     out_object = get_tweets('wildfires')
-    print(type(out_object))
