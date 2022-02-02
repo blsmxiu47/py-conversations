@@ -1,4 +1,5 @@
 import logging
+import os
 
 import requests
 
@@ -21,3 +22,11 @@ def handle_request(url, headers=None, params=None):
         logging.error("Sorry.. Some request exception occurred", err)
 
     return response
+
+
+def get_local_var(var_name):
+    return os.environ.get(var_name)
+
+
+def set_local_var(var_name, var):
+    os.environ[var_name] = str(var)

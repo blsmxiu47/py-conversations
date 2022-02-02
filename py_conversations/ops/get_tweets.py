@@ -5,6 +5,7 @@ from dagster import op, In, Out
 import tweepy
 
 import settings
+from py_conversations.utils import set_local_var
 
 CONSUMER_KEY = settings.TWITTER_API_KEY
 CONSUMER_SECRET = settings.TWITTER_API_SECRET_KEY
@@ -36,6 +37,12 @@ def get_tweets(topic, last_id, limit=10):
     tweets_list = [json.loads(json.dumps(status._json)) for status in tweets]
 
     last_id = tweets_list[-1]['id'] # set last id to be used as starting point for next run
+    # store_local({
+    #     'name': 'last_id',
+    #     'type': int,
+    #     'value': last_id
+    # })
+    set_local_var('LAST_ID', last_id)
 
     keys_to_extract = [
         'id', 
