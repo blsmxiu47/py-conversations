@@ -1,0 +1,12 @@
+execution:
+  config:    
+    in_process:
+      retries:
+        enabled:
+inputs:
+  last_id:
+    value: 1485314390639333378
+  limit:
+    value: 1
+  topic:
+    value: wildfires
