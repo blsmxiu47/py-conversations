@@ -1,3 +1,5 @@
+import os
+
 from dagster import Any
 from py_conversations.graphs.collect_insert_tweets import collect_insert_tweets
 
@@ -16,7 +18,7 @@ def test_collect_insert_tweets():
         run_config={
             'inputs': {
                 'topic': { 'value': 'wildfires' },
-                'last_id': { 'value': 1485314390639333378 },
+                'last_id': { 'value': os.environ.get('LAST_ID') },
                 'limit': {'value': 1 }
             },
             'ops': {
