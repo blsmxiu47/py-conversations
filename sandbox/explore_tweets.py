@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+import logging
 import pdb
 from pprint import pprint
 
@@ -29,7 +30,11 @@ def get_tweets(topic, last_id=None, limit=10):
         json.loads(json.dumps(status._json)) for status in tweets]
 
     # set last id to be used as starting point for next run
-    last_id = tweets_list[-1]['id']
+    try:
+        last_id = tweets_list[-1]['id']
+    except IndexError as e:
+        logging.error(e, '\nCheck that query is successful and returning at least 1 status')
+
 
     keys_to_extract = [
         'id', 
@@ -57,4 +62,4 @@ def get_tweets(topic, last_id=None, limit=10):
     return (tweets_list, last_id)
 
 if __name__=='__main__':
-    out_object = get_tweets('wildfires')
+    out_object = get_tweets('wildfires', limit=1, last_id=1485314390639333378)
