@@ -9,8 +9,19 @@ TKTK
 | `README.md`              | A description and guide for this code repository                                  |
 | `setup.py`               | A build script with Python package dependencies for this code repository          |
 | `workspace.yaml`         | A file that specifies the location of the user code for Dagit and the Dagster CLI |
-| `py_conversations/`       | A Python directory that contains code for your Dagster repository                 |
-| `py_conversations_tests/` | A Python directory that contains tests for `py_conversations`                      |
+| `docs/`                  | A directory that will hold some usage documentation                               |
+| `py_conversations_tests/` | A Python directory that contains tests for `py_conversations`                    |
+| `py_conversations/`      | A Python directory that contains code for your Dagster repository                 |
+| `sandbox/`               | A Python directory that will contain sample code and ad-hoc usage of certain ops  |
+| `.dockerignore`          |   |
+| `.gitignore`             |   |
+| `dagster.yaml`           |  |
+| `example-docker-compose.yaml` |   |
+| `Dockerfile_app`         |   |
+| `Dockerfile_dagster`     |   |
+| `settings.py`            |   |
+| `workspace.yaml`         |   |
+
 
 ## Getting up and running
 
