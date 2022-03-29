@@ -2,8 +2,7 @@ from dagster import repository
 
 from py_conversations.graphs.collect_insert_googlenews import collect_insert_googlenews
 from py_conversations.graphs.collect_insert_tweets import collect_insert_tweets
-from py_conversations.schedules.schedules import hourly_collect_googlenews
-from py_conversations.schedules.schedules import hourly_collect_tweets
+from py_conversations.schedules.schedules import hourly_collect_googlenews, hourly_collect_tweets
 
 
 @repository
